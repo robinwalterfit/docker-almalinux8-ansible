@@ -41,7 +41,7 @@ jobs:
     name: Build & Push Image to Docker Hub
     needs: test
     runs-on: ubuntu-latest
-    if: github.ref == "refs/heads/main"
+    if: github.ref == 'refs/heads/main'
 
     steps:
       - name: Set up QEMU
