@@ -22,13 +22,20 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+
       - name: Build image
-        run: >-
-          docker buildx build
-          --build-arg CREATED=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
-          --build-arg REVISION=${{github.sha}}
-          --build-arg VERSION=latest
-          --tag docker-ansible .
+        uses: docker/build-push-action@v6
+        with:
+          build-args: |
+            CREATED=${{ steps.date.outputs.date }}
+            REVISION=${{github.sha}}
+            VERSION=latest
+          load: true
+          push: false
+          tags: docker-ansible:latest
 
       - name: Create container to verify the build
         run: docker run --cgroupns=host --detach --name test-container --privileged --volume '/sys/fs/cgroup:/sys/fs/cgroup:rw' docker-ansible
