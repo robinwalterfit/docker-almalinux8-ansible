@@ -2,7 +2,6 @@
 # Declare the BASE IMAGE
 FROM docker.io/library/almalinux:8
 # Define Build Arguments
-# Ensure Build Arguments are still available
 ARG CREATED
 ARG REVISION
 ARG VERSION

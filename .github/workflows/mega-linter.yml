@@ -4,12 +4,9 @@
 name: MegaLinter
 
 on:
-  # Trigger mega-linter at every push. Action will also be visible from Pull Requests to main
-  push:
-    - branches:
-        - develop
-        - main
+  # Trigger mega-linter at every push on develop or main. Action will also be visible from Pull Requests
   pull_request:
+  push:
     branches:
       - develop
       - main
