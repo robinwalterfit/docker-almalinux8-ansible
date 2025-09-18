@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 # Declare the BASE IMAGE
-FROM docker.io/library/almalinux:8
+FROM docker.io/almalinux/8-init:latest
 # Define Build Arguments
 ARG CREATED
 ARG REVISION
@@ -13,7 +13,7 @@ ARG VERSION
 # and: https://github.com/opencontainers/image-spec/blob/main/annotations.md
 # Deprecated but for backward compatibility
 LABEL org.opencontainers.image.authors="Robin Walter <hello@robinwalter.me>" \
-    org.opencontainers.image.base.name="docker.io/library/almalinux:8" \
+    org.opencontainers.image.base.name="docker.io/almalinux/8-init:latest" \
     org.opencontainers.image.created="${CREATED}" \
     org.opencontainers.image.description="AlmaLinux 8 Docker image for Ansible playbook and role testing." \
     org.opencontainers.image.documentation="https://github.com/robinwalterfit/docker-almalinux8-ansible" \
@@ -60,4 +60,3 @@ RUN dnf install --assumeyes --setopt=install_weak_deps=False dnf-plugins-core &&
     bash -c "echo -e '[local]\nlocalhost ansible_connection=local' > '/etc/ansible/hosts'"
 
 VOLUME ["/sys/fs/cgroup"]
-CMD ["/usr/lib/systemd/systemd"]
